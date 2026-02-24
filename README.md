@@ -1,6 +1,6 @@
 # 🎉 Event Invitation — Go Backend
 
-Platform undangan digital gratis untuk wedding, ulang tahun, komunitas, dan acara lainnya.
+Free digital invitation platform for weddings, birthdays, communities, and other events.
 
 ## Tech Stack
 
@@ -25,26 +25,6 @@ Layer yang jelas dan terpisah:
 - **Repository**: Query database saja
 - **Domain**: Struct + interface kontrak
 
----
-
-## Struktur Folder
-
-```
-event-invitation/
-├── cmd/api/main.go          # Entry point, DI, routing
-├── internal/
-│   ├── config/              # Load env
-│   ├── domain/              # Entities + Repository interfaces
-│   ├── repository/          # Implementasi query DB
-│   ├── service/             # Business logic
-│   ├── handler/http/        # HTTP handlers (Gin)
-│   ├── middleware/          # Auth, CORS, Logging
-│   ├── infrastructure/      # DB, Redis, Storage init
-│   └── utils/               # Token, Slug, Response helpers
-└── migrations/              # SQL migration files
-```
-
----
 
 ## Quick Start
 
@@ -108,67 +88,6 @@ Server berjalan di `http://localhost:8080`
 | POST | `/api/v1/events/:id/media` | Upload gambar/video/audio |
 | GET | `/api/v1/events/:id/media` | List media event |
 | DELETE | `/api/v1/events/:id/media/:mediaId` | Hapus media |
-
----
-
-## Contoh Request
-
-### Register
-```bash
-curl -X POST http://localhost:8080/api/v1/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Budi","email":"budi@email.com","password":"password123"}'
-```
-
-### Buat Event
-```bash
-curl -X POST http://localhost:8080/api/v1/events \
-  -H "Authorization: Bearer <TOKEN>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "template_id": "<uuid>",
-    "title": "Pernikahan Budi & Ani",
-    "event_date": "2025-06-15T10:00:00Z",
-    "location_name": "Gedung Serbaguna",
-    "location_address": "Jl. Mawar No. 10, Jakarta"
-  }'
-```
-
-### Publish Event
-```bash
-curl -X PATCH http://localhost:8080/api/v1/events/<id>/publish \
-  -H "Authorization: Bearer <TOKEN>" \
-  -H "Content-Type: application/json" \
-  -d '{"publish": true}'
-```
-
-### Submit RSVP
-```bash
-curl -X POST http://localhost:8080/api/v1/events/<id>/rsvp \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Tamu 1","phone":"08123456","status":"yes","message":"Selamat!"}'
-```
-
----
-
-## Response Format
-
-Semua response menggunakan format yang konsisten:
-```json
-{
-  "success": true,
-  "message": "success",
-  "data": { ... }
-}
-```
-
-Error:
-```json
-{
-  "success": false,
-  "error": "pesan error"
-}
-```
 
 ---
 
